@@ -1,4 +1,10 @@
 node{
+environment {
+        PROJECT_ID = 'skilled-display-260316'
+        CLUSTER_NAME = 'kube-cluster'
+        LOCATION = 'us-central1-c'
+        CREDENTIALS_ID = 'skilled-display-260316'
+    }
      
     stage('SCM Checkout'){
         git credentialsId: 'GIT_CREDENTIALS', url:  'https://github.com/cooldsachin/spring-boot-mongo-docker.git',branch: 'master'
@@ -34,6 +40,12 @@ node{
 	  
       stage("Deploy To Kuberates Cluster"){
         sh 'kubectl apply -f springBootMongo.yml'
+	step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+            }
+        }
+    }    
+}
+
       } 
            
 }
