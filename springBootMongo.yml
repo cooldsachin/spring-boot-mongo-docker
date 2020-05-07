@@ -5,6 +5,7 @@ metadata:
     name: springboot
   name: spring-controller
 spec:
+  serviceAccount: kube-cluster-svc-act
   replicas: 1
   template:
     metadata:
@@ -41,6 +42,7 @@ metadata:
     name: mongo
   name: mongo-controller
 spec:
+  serviceAccount: kube-cluster-svc-act
   replicas: 1
   template:
     metadata:
